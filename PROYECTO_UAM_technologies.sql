@@ -1,19 +1,25 @@
 CREATE DATABASE PROYECTO_UAM_technologies;
 USE PROYECTO_UAM_technologies
 
-----------------------CLIENTES++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SELECT *FROM CLIENTE
+---------------------------------------------------------------CLIENTES
 CREATE TABLE CLIENTE(
 ID INT IDENTITY(01,1)PRIMARY KEY,
 NOMBRES VARCHAR (100),
 APELLIDOS VARCHAR (100),
 DNI CHAR(8),
+PROVINCIA VARCHAR(100),
+GENERO VARCHAR(30),
 EDAD INT,
 DIRECCION VARCHAR (100),
-PROVINCIA VARCHAR (100),
-FECHA DATE,
-FOTO IMAGE )
+FECHA date,
+FOTO IMAGE 
+)
 
---STORE PROCEDURE PARA REGISTRAR CLIENTES
+
+
+
+---STORE PROCEDURE PARA REGISTRAR CLIENTES
 
 CREATE PROCEDURE REGISTRAR_CLIENTE
 	@NOMBRES varchar(100),
@@ -22,14 +28,17 @@ CREATE PROCEDURE REGISTRAR_CLIENTE
 	@EDAD int,
 	@DIRECCION varchar(100),
 	@PROVINCIA varchar(100),
-	@FECHA date,
+	@GENERO VARCHAR(30),
 	@FOTO image
+	
 AS
 BEGIN
-	insert into CLIENTE(NOMBRES,APELLIDOS,DNI,EDAD,DIRECCION,PROVINCIA,FECHA,FOTO)	values 
-	(@NOMBRES,@APELLIDOS,@DNI,@EDAD,@DIRECCION,@PROVINCIA,@FECHA,@FOTO)
+	insert into CLIENTE(NOMBRES,APELLIDOS,DNI,EDAD,DIRECCION,PROVINCIA,GENERO,FECHA,FOTO)	values 
+	(@NOMBRES,@APELLIDOS,@DNI,@EDAD,@DIRECCION,@PROVINCIA,@GENERO,GETDATE(),@FOTO)
 END
 GO
+
+select *from CLIENTE
 
 ----STORE PROCEDURE PARA ELIMINAR CLIENTES
 create procedure BORRAR_CLIENTE
@@ -56,6 +65,41 @@ BEGIN
 
 END
 
+
+------------------------------------------------------------------------PROVINCIAS
+
+CREATE TABLE PROVINCIAS(
+IDPROVINCIAS INT IDENTITY(1,1),
+PROVINCIA VARCHAR(40),
+
+)
+
+Insert into PROVINCIAS
+values ('San jose'),('Alajuela'),('Cartago'),('Heredia'),('Guanacaste'),('Puntarenas'),('Limon')
+--//////////////////////////////////////////////////////////////////
+CREATE PROCEDURE CONSULTAPROVINCIA                  
+
+AS
+
+SELECT IDPROVINCIAS,PROVINCIA FROM PROVINCIAS
+GO
+
+--------------------------------------------------------------------------------------GENERO
+create table genero(
+IDGENERO INT IDENTITY (1,1),
+GENERO VARCHAR(40)
+
+)
+
+Insert into genero
+values ('Masculino'),('Femenino')
+
+CREATE PROCEDURE CONSULTAGENERO                  
+
+AS
+
+SELECT IDGENERO,GENERO FROM genero
+GO
 ----------------------------CONDUCTORES++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 CREATE TABLE CONDUCTOR(
