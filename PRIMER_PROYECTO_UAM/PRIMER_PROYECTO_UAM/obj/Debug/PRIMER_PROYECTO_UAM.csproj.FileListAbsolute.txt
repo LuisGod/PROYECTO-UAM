@@ -1,0 +1,9 @@
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\bin\Debug\PRIMER_PROYECTO_UAM.exe.config
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\obj\Debug\PRIMER_PROYECTO_UAM.csprojResolveAssemblyReference.cache
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\obj\Debug\PRIMER_PROYECTO_UAM.Properties.Resources.resources
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\obj\Debug\PRIMER_PROYECTO_UAM.csproj.GenerateResource.Cache
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\bin\Debug\PRIMER_PROYECTO_UAM.exe
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\bin\Debug\PRIMER_PROYECTO_UAM.pdb
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\obj\Debug\PRIMER_PROYECTO_UAM.exe
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\obj\Debug\PRIMER_PROYECTO_UAM.pdb
+c:\users\luis1990\documents\visual studio 2012\Projects\PRIMER_PROYECTO_UAM\PRIMER_PROYECTO_UAM\obj\Debug\PRIMER_PROYECTO_UAM.Form1.resources
