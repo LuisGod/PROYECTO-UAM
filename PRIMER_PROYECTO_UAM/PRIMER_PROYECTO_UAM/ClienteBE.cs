@@ -63,13 +63,13 @@ namespace PRIMER_PROYECTO_UAM
             set { fecha = value; }
         }
 
-        //private byte foto;
+        private byte foto;  
 
-        //public byte Foto
-        //{
-        //    get { return foto; }
-        //    set { foto = value; }
-        //}
+        public byte Foto
+        {
+            get { return foto; }
+            set { foto = value; }
+        }
        
     }
 }

@@ -4,97 +4,93 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.IO;
 
 namespace PRIMER_PROYECTO_UAM
 {
-    
-        public class ClienteController : Form1
+   public   class ClienteController
+    {
+      // Conexion myconexion = new Conexion();
+       SqlConnection miconexion = new SqlConnection(Conexion.sqlConnection);
+        //SqlCommand comando = myconexion.CreateCommand(conexion);
+       
+
+       private string buscar;
+        public string Buscar
         {
-
-
-            public bool REGISTRAR_CLIENTE(ClienteBE cliente)
-            {
-                bool result = false;
-                try
-                {
-                    Conexion myconexion = new Conexion();
-                    SqlConnection conexion = myconexion.CreateConnection();
-                    SqlCommand comando = myconexion.CreateCommand(conexion);
-
-                    comando.CommandText = "REGISTRAR_CLIENTE";
-                    comando.CommandType = CommandType.StoredProcedure;
-                    comando.Parameters.AddWithValue("@NOMBRES", cliente.Nombres);
-                    comando.Parameters.AddWithValue("@APELLIDOS", cliente.Apellidos);
-                    comando.Parameters.AddWithValue("@DNI", cliente.Dni);
-                    comando.Parameters.AddWithValue("@EDAD", cliente.Edad);
-                    comando.Parameters.AddWithValue("@DIRECCION", cliente.Direccion);
-                    comando.Parameters.AddWithValue("@PROVINCIA", cliente.Provincia);
-                    //comando.Parameters.AddWithValue("@FOTO", binData);
-                    //comando.Parameters.AddWithValue("@FECHA", cliente.Fecha);
-                    //comando.Parameters.AddWithValue("@FOTO", binData);
-
-
-
-                    conexion.Open();
-                    comando.ExecuteNonQuery();
-                    conexion.Close();
-                    result = true;
-                }
-                catch (SqlException e)
-                {
-                    //insert error in a log
-                    result = false;
-                }
-                return result;
-
-            }
-
-            public List<ClienteBE> RetrieveAllStudent()
-            {
-                List<ClienteBE> listResult = new List<ClienteBE>();
-                try
-                {
-                    Conexion myConnection = new Conexion();
-                    SqlConnection conexion = myConnection.CreateConnection();
-                    SqlCommand comando = myConnection.CreateCommand(conexion);
-                    SqlDataReader infoclienteReader;
-
-                    comando.CommandText = "clientes";
-                    comando.CommandType = CommandType.StoredProcedure;
-
-                    conexion.Open();
-                    infoclienteReader = comando.ExecuteReader();
-
-                    while (infoclienteReader.Read())
-                    {
-                        ClienteBE cliente = new ClienteBE();
-                        cliente.Nombres = infoclienteReader["NOMBRES"].ToString();
-                        cliente.Apellidos = infoclienteReader["APELLIDOS"].ToString();
-                        cliente.Dni = infoclienteReader["DNI"].ToString();
-                        cliente.Edad = Convert.ToInt16(infoclienteReader["EDAD"]);
-                        cliente.Direccion = infoclienteReader["DIRECCION"].ToString();
-                        cliente.Provincia = infoclienteReader["PROVINCIA"].ToString();
-
-                        // cliente.Fecha = Convert.ToDateTime(infoclienteReader["FECHA"]);
-                        // cliente.pic = Convert.ToSByte(infoclienteReader["FOTO"]);
-
-
-
-                        listResult.Add(cliente);
-                    }
-
-                    conexion.Close();
-                }
-                catch (SqlException e)
-                {
-
-                }
-                return listResult;
-            }
-
-
+            get { return buscar; }
+            set { buscar = value; }
         }
-    }
 
+        public void listarclientes(DataGridView data)
+       {
+          
+           
+           miconexion.Open();
+           SqlCommand comando = new SqlCommand("SELECT * FROM CLIENTE", miconexion);
+           comando.Connection = miconexion;
+           comando.ExecuteNonQuery();
+           DataTable dt = new DataTable();
+           SqlDataAdapter da = new SqlDataAdapter(comando);
+           da.Fill(dt);
+           data.DataSource = dt;
+           data.Columns[0].Width = 60;
+           data.Columns[1].Width = 165;
+           data.Columns[2].Width = 165;
+           data.Columns[3].Width = 90;
+           data.Columns[4].Width = 50;
+           data.Columns[5].Width = 165;
+           data.Columns[6].Width = 100;
+           data.Columns[7].Width = 125;
+
+           miconexion.Close();
+       }
+       public void buscarcedula(DataGridView data)
+       {
+           miconexion.Open();
+           SqlCommand comando = new SqlCommand("SELECT * FROM CLIENTE where DNI like ('" + buscar + "%')", miconexion);
+           comando.Connection = miconexion;
+           comando.ExecuteNonQuery();
+           DataTable dt = new DataTable();
+           SqlDataAdapter da = new SqlDataAdapter(comando);
+           da.Fill(dt);
+           data.DataSource = dt;
+           miconexion.Close();
+       }
+
+       public void buscarapellido(DataGridView data)
+       {
+           miconexion.Open();
+           SqlCommand comando = new SqlCommand("SELECT * FROM CLIENTE where APELLIDOS like ('" + buscar + "%')", miconexion);
+           comando.Connection = miconexion;
+           comando.ExecuteNonQuery();
+           DataTable dt = new DataTable();
+           SqlDataAdapter da = new SqlDataAdapter(comando);
+           da.Fill(dt);
+           data.DataSource = dt;
+           miconexion.Close();
+       }
+       public void eliminar(DataGridView dataelimina)
+       {
+           DialogResult resultado = MessageBox.Show("¿Estas Seguro de Eliminar al cliente?");
+           if (resultado == DialogResult.No)
+           {
+               return;
+           }
+       
+           {
+               SqlCommand comando = new SqlCommand("BORRAR_CLIENTE", miconexion);
+               comando.CommandType = CommandType.StoredProcedure;
+               comando.Parameters.AddWithValue("ID", dataelimina.CurrentRow.Cells["ID"].Value);
+               miconexion.Open();
+               comando.ExecuteNonQuery();
+               miconexion.Close();
+
+              MessageBox.Show("El cliente ha sido eliminado");
+           }
+           
+       }
+
+    }
+}
