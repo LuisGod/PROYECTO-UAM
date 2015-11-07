@@ -1,6 +1,6 @@
 CREATE DATABASE PROYECTO_UAM_technologies;
 USE PROYECTO_UAM_technologies
-
+SELECT *FROM CLIENTE
 ---------------------------------------------------------------CLIENTES
 CREATE TABLE CLIENTE(
 ID INT IDENTITY(01,1)PRIMARY KEY,
